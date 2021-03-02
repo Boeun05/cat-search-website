@@ -137,6 +137,7 @@ input:checked + .slider:before {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .SearchResult .item {
@@ -220,7 +221,6 @@ input:checked + .slider:before {
 
 .ImageInfo .content-wrapper img {
   width: 100%;
-  cursor: pointer;
 }
 
 @media (max-width: 992px) {
