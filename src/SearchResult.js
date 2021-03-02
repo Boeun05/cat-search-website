@@ -24,18 +24,18 @@ export default class SearchResult {
     }
     this.$searchResult.innerHTML = this.data
       .map(
-        (cat) => `
-            <div class="item">
-              <img src=${cat.url} alt=${cat.name} />
+        (cat, index) => `
+            <div class="item" data-id=${index}>
+              <img src=${cat.url} data-id=${index} alt=${cat.name} />
             </div>
           `
       )
       .join("");
 
-    this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
-      $item.addEventListener("click", () => {
-        this.onClick(this.data[index]);
-      });
+    this.$searchResult.addEventListener("click", (e) => {
+      if ((e.target.className = "item")) {
+        this.onClick(this.data[e.target.dataset.id]);
+      }
     });
   }
 }
