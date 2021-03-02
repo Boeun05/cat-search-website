@@ -17,4 +17,5 @@ export const api = {
   fetchCats: (keyword) =>
     request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`),
   fetchInfo: (id) => request(`${API_ENDPOINT}/api/cats/${id}`),
+  fetchRandomCats: () => request(`${API_ENDPOINT}/api/cats/random50`),
 };

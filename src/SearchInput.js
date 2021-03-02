@@ -1,19 +1,32 @@
 const TEMPLATE = '<input type="text">';
 
 export default class SearchInput {
-  constructor({ $target, onSearch }) {
-    const $searchInput = document.createElement("input");
-    this.$searchInput = $searchInput;
-    this.$searchInput.placeholder = "고양이를 검색해보세요.|";
+  constructor({ $target, onSearch, searchRandom }) {
+    const $searchInputContainer = document.createElement("div");
+    $searchInputContainer.className = "SearchInputContainer";
+    this.$searchInputContainer = $searchInputContainer;
 
-    $searchInput.className = "SearchInput";
-    $target.appendChild($searchInput);
+    this.onSearch = onSearch;
+    this.searchRandom = searchRandom;
+    $target.appendChild($searchInputContainer);
+
+    this.render();
+  }
+  render() {
+    this.$searchInputContainer.innerHTML = `
+      <div class="SearchInputContainer">
+        <input placeholder="고양이를 검색해보세요.|" class="SearchInput">
+        <button class="SearchRandomImg">랜덤이미지</button>
+      </div>`;
+
+    console.log("SearchInput created.", this);
+    const $searchInput = document.querySelector(".SearchInput");
+    const $searchRandomImg = document.querySelector(".SearchRandomImg");
 
     $searchInput.focus();
-
     $searchInput.addEventListener("keyup", (e) => {
       if (e.keyCode === 13) {
-        onSearch(e.target.value);
+        this.onSearch(e.target.value);
       }
     });
 
@@ -23,7 +36,9 @@ export default class SearchInput {
       }
     });
 
-    console.log("SearchInput created.", this);
+    $searchRandomImg.addEventListener("click", () => {
+      console.log("searchRandomImg.");
+      this.searchRandom();
+    });
   }
-  render() {}
 }

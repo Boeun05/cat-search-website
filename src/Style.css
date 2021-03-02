@@ -8,22 +8,23 @@
 :root {
   --color-gray: #757575;
   --size-25: 25px;
+  --size-16: 16px;
 }
 :root[color-theme="light"] {
-  --background-body: #fff;
-  --background-comp: #eee;
+  --background-main: #fff;
+  --background-sub: #eee;
   --color-font: #333;
 }
 
 :root[color-theme="dark"] {
-  --background-body: #000;
-  --background-comp: #666;
+  --background-main: #000;
+  --background-sub: #666;
   --color-font: #fff;
 }
 
 html {
   box-sizing: border-box;
-  background: var(--background-body);
+  background: var(--background-main);
   color: var(--color-font);
 }
 
@@ -40,6 +41,10 @@ body * {
 ul,
 li {
   list-style: none;
+}
+
+button {
+  outline: none;
 }
 
 .clearfix:after {
@@ -135,7 +140,7 @@ input:checked + .slider:before {
 }
 
 .SearchResult .item {
-  background-color: var(--background-comp);
+  background-color: var(--background-sub);
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
@@ -160,12 +165,28 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.SearchInputContainer {
+  vertical-align: middle;
+}
 .SearchInput {
-  width: 100%;
+  width: 90%;
   font-size: 40px;
   padding: 10px 15px;
-  background: var(--background-body);
+  background: var(--background-main);
   border: 1px solid var(--color-font);
+}
+
+.SearchRandomImg {
+  float: right;
+  background: var(--background-main);
+  color: var(--color-gray);
+  cursor: pointer;
+  font-size: var(--size-16);
+  vertical-align: middle;
+  border: 1px solid var(--color-gray);
+  padding: 0px 5px;
+  border-radius: 10px 10px;
+  margin-top: 10px;
 }
 
 .ImageInfo {
@@ -192,13 +213,14 @@ input:checked + .slider:before {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--background-body);
-  border: 1px solid var(--background-comp);
+  background-color: var(--background-main);
+  border: 1px solid var(--background-sub);
   border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+  cursor: pointer;
 }
 
 @media (max-width: 992px) {
@@ -221,10 +243,3 @@ input:checked + .slider:before {
     display: block;
   }
 }
-
-/* @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000;
-    color: white;
-  }
-} */

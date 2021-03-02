@@ -30,6 +30,12 @@ export default class App {
         setItem(SEARCH_SESSION_KEY, this.searches);
         this.searchHistory.setState(this.searches);
       },
+      searchRandom: async () => {
+        this.handleLoading(true);
+        const response = await api.fetchRandomCats();
+        this.handleLoading(false);
+        this.setState(response.data);
+      },
     });
 
     this.searchHistory = new SearchHistory({
@@ -48,13 +54,12 @@ export default class App {
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: (image) => {
-        api.fetchInfo(image.id).then((info) =>
-          this.imageInfo.setState({
-            visible: true,
-            image: info.data,
-          })
-        );
+      onClick: async (image) => {
+        const response = await api.fetchInfo(image.id);
+        this.imageInfo.setState({
+          visible: true,
+          image: response.data,
+        });
       },
     });
 
