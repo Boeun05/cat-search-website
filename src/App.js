@@ -22,14 +22,6 @@ export default class App {
 
     this.colorTheme = new ColorTheme({ $target });
 
-    this.searchHistory = new SearchHistory({
-      $target,
-      searches: this.searches,
-      onSearch: (keyword) => {
-        this.doSearch(keyword);
-      },
-    });
-
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
@@ -37,6 +29,14 @@ export default class App {
         this.createHistory(keyword);
         setItem(SEARCH_SESSION_KEY, this.searches);
         this.searchHistory.setState(this.searches);
+      },
+    });
+
+    this.searchHistory = new SearchHistory({
+      $target,
+      searches: this.searches,
+      onSearch: (keyword) => {
+        this.doSearch(keyword);
       },
     });
 

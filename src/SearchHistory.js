@@ -22,6 +22,9 @@ export default class SearchHistory {
   }
 
   render() {
+    if (this.searches.length === 0) {
+      return;
+    }
     const newestSearches = this.searches.slice(-5);
     const HTMLString = `<span>최근검색어:</span>${newestSearches
       .map((keyword) => `<li>${keyword}</li>`)
