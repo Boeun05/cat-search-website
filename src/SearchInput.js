@@ -14,10 +14,9 @@ export default class SearchInput {
   }
   render() {
     this.$searchInputContainer.innerHTML = `
-      <div class="SearchInputContainer">
         <input placeholder="고양이를 검색해보세요.|" class="SearchInput">
         <button class="SearchRandomImg">랜덤이미지</button>
-      </div>`;
+      `;
 
     console.log("SearchInput created.", this);
     const $searchInput = document.querySelector(".SearchInput");

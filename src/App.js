@@ -4,6 +4,7 @@ import SearchInput from "./SearchInput.js";
 import SearchResult from "./SearchResult.js";
 import Loading from "./Loading.js";
 import ImageInfo from "./ImageInfo.js";
+import InfiniteScroll from "./InfiniteScroll.js";
 import { api } from "./api.js";
 import { getItem, setItem } from "./SessionStorage.js";
 
@@ -31,9 +32,7 @@ export default class App {
         this.searchHistory.setState(this.searches);
       },
       searchRandom: async () => {
-        this.handleLoading(true);
-        const response = await api.fetchRandomCats();
-        this.handleLoading(false);
+        const response = await this.randomSearch();
         this.setState(response.data);
       },
     });
@@ -70,7 +69,14 @@ export default class App {
         image: null,
       },
     });
-    console.log(this.isLoading);
+
+    this.infiniteScroll = new InfiniteScroll({
+      addListItem: async () => {
+        const response = await this.randomSearch();
+        this.data = [...this.data, ...response.data];
+        this.setState(this.data);
+      },
+    });
   }
 
   handleLoading(loadStatus) {
@@ -83,6 +89,14 @@ export default class App {
     const response = await api.fetchCats(keyword);
     this.setState(response.data);
     this.handleLoading(false);
+    console.log(response.data);
+  }
+
+  async randomSearch() {
+    this.handleLoading(true);
+    const response = await api.fetchRandomCats();
+    this.handleLoading(false);
+    return response;
   }
 
   createHistory(keyword) {

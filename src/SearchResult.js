@@ -24,9 +24,9 @@ export default class SearchResult {
     }
     this.$searchResult.innerHTML = this.data
       .map(
-        (cat, index) => `
-            <div class="item" data-id=${index}>
-              <img src=${cat.url} data-id=${index} alt=${cat.name} />
+        (cat) => `
+            <div class="item itemList">
+              <img src=${cat.url} alt=${cat.name} />
             </div>
           `
       )
@@ -34,7 +34,10 @@ export default class SearchResult {
 
     this.$searchResult.addEventListener("click", (e) => {
       if ((e.target.className = "item")) {
-        this.onClick(this.data[e.target.dataset.id]);
+        const itemList = document.querySelectorAll(".itemList");
+        let index = Array.prototype.indexOf.call(itemList, e.target.parentNode);
+
+        this.onClick(this.data[index]);
       }
     });
   }
