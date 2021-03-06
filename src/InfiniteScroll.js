@@ -13,11 +13,11 @@ export default class InfiniteScroll {
 
     const getData = () => {
       this.addListItem();
+      console.log("intersected");
     };
 
     const handleIntersect = (entries) => {
       if (entries[0].isIntersecting) {
-        console.log("something is intersecting");
         getData();
       }
     };

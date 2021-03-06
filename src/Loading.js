@@ -17,8 +17,7 @@ export default class Loading {
   }
 
   render() {
-    const HTMLString = "Loading...";
-    this.$showLoading.innerHTML = HTMLString;
+    // this.$showLoading.innerHTML = `<img src="./untitled-5.gif" alt="로딩"/>`;
 
     this.isLoading
       ? (this.$showLoading.style.display = "block")

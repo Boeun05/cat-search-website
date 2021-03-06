@@ -6,10 +6,24 @@ export default class SearchResult {
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
     this.$searchResult.className = "SearchResult";
+
+    this.$noData = document.createElement("div");
+    this.$noData.className = "NoData";
+    this.$noData.innerHTML = "검색 결과가 없어요.━ ";
+
+    $target.appendChild(this.$noData);
     $target.appendChild(this.$searchResult);
 
     this.data = initialData;
     this.onClick = onClick;
+
+    this.$searchResult.addEventListener("click", (e) => {
+      if (e.target.tagName === "IMG") {
+        const index = e.target.dataset.id;
+        console.log(e.target);
+        this.onClick(this.data[index]);
+      }
+    });
   }
 
   setState(nextData) {
@@ -19,26 +33,20 @@ export default class SearchResult {
 
   render() {
     if (this.data.length === 0) {
-      this.$searchResult.innerHTML = "검색 결과가 없어요.━ ";
+      this.$noData.style.display = "block";
+      window.setTimeout(() => {
+        this.$noData.style.display = "none";
+      }, 2000);
       return;
     }
     this.$searchResult.innerHTML = this.data
       .map(
-        (cat) => `
-            <div class="item itemList">
-              <img src=${cat.url} alt=${cat.name} />
+        (cat, index) => `
+            <div class="item">
+              <img src=${cat.url} data-id =${index} alt=${cat.name} />
             </div>
           `
       )
       .join("");
-
-    this.$searchResult.addEventListener("click", (e) => {
-      if ((e.target.className = "item")) {
-        const itemList = document.querySelectorAll(".itemList");
-        let index = Array.prototype.indexOf.call(itemList, e.target.parentNode);
-
-        this.onClick(this.data[index]);
-      }
-    });
   }
 }
